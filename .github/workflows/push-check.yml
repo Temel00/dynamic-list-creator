@@ -1,0 +1,42 @@
+on: push
+name: Type Checks
+jobs:
+  type-check:
+    name: Type & Coverage Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.5.0
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Get Node.js version
+        id: nvm
+        run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Type Coverage
+        run: yarn check:coverage
+
+      - name: Type Check
+        run: yarn check:type
+
+      - name: Code formatting check
+        run: yarn check:format
+
+      - name: NextJS Export check
+        run: yarn export
