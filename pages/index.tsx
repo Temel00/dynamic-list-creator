@@ -2,8 +2,12 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Footer from '../components/footer';
 import styles from '../styles/Home.module.css';
+import Auth from '../components/auth';
+import useAuth from '../hooks/useAuth';
 
 const Home: NextPage = () => {
+  const { isLoggedIn, user } = useAuth();
+  console.log('home-user', user);
   return (
     <div className={styles.container}>
       <Head>
@@ -16,6 +20,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
+        <Auth />
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
