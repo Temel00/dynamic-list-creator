@@ -1,5 +1,13 @@
 import { db } from '../firebase';
-import { collection, addDoc, updateDoc, doc, deleteDoc, arrayUnion } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  doc,
+  deleteDoc,
+  arrayUnion,
+  arrayRemove,
+} from 'firebase/firestore';
 
 type TodoProps = {
   isComplete: boolean;
@@ -28,20 +36,28 @@ const toggleTodoStatus = async (props: ToggleProps) => {
   try {
     const todoRef = doc(db, 'todo', docId);
     await updateDoc(todoRef, {
-      tasks: {
+      tasks: arrayRemove({
         task: task,
-        isComplete: !checked,
-      },
+        isComplete: checked,
+      }),
+    }).then(() => {
+      updateDoc(todoRef, {
+        tasks: arrayUnion({ task: task, isComplete: !checked }),
+      });
     });
   } catch (err) {
     console.log(err);
   }
 };
 
-const deleteTodo = async (docId: string) => {
+const deleteTodo = async (docId: string, task: string, isComplete: boolean) => {
+  console.log('docid: ', docId);
+  console.log('task in delete', task);
   try {
     const todoRef = doc(db, 'todo', docId);
-    await deleteDoc(todoRef);
+    await updateDoc(todoRef, {
+      tasks: arrayRemove({ task: task, isComplete: isComplete }),
+    });
   } catch (err) {
     console.log(err);
   }

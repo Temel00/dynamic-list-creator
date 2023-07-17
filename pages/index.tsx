@@ -5,8 +5,19 @@ import styles from '../styles/Home.module.css';
 import Auth from '../components/auth';
 import useAuth from '../hooks/useAuth';
 import { useState, useEffect } from 'react';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import {
+  collection,
+  onSnapshot,
+  query,
+  where,
+  addDoc,
+  setDoc,
+  doc,
+  updateDoc,
+  arrayUnion,
+} from 'firebase/firestore';
 import { db } from '../firebase';
+
 import {
   Popover,
   PopoverTrigger,
@@ -18,6 +29,7 @@ import {
   ButtonGroup,
 } from '@chakra-ui/react';
 import Link from 'next/link';
+import { Input } from '@nextui-org/react';
 
 const Home: NextPage = () => {
   const { isLoggedIn, user } = useAuth();
@@ -49,7 +61,36 @@ const Home: NextPage = () => {
     refreshData();
   }, [user]);
 
-  console.log('data', sojourns);
+  const handleCreateTodoList = async (e: any) => {
+    try {
+      const q = query(collection(db, 'sojourns'), where('user', '==', (user as any).uid));
+      const newTodoRef = doc(collection(db, 'todo'));
+      onSnapshot(q, querySnapchot => {
+        querySnapchot.docs.forEach(async doc => {
+          const sojournRef = doc.ref;
+          const data = {
+            createdAt: Date.now(),
+            description: '',
+            docid: newTodoRef.id,
+            status: 'active',
+            tasks: [],
+            title: e.value,
+            user: (user as any).uid,
+          };
+
+          await setDoc(newTodoRef, data);
+
+          await updateDoc(sojournRef, {
+            sojourns: arrayUnion({ docid: newTodoRef.id, title: e.value, type: 'todo' }),
+          });
+        });
+      });
+
+      // await addDoc(collection(db, 'sojourns'),  )
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -78,7 +119,6 @@ const Home: NextPage = () => {
             <h1>This is the home page for {(user as any)?.displayName}</h1>
             <div>
               <h2>Sojourns</h2>
-              {console.log('sojourns', sojourns)}
               <div
                 style={{
                   display: 'flex',
@@ -124,17 +164,23 @@ const Home: NextPage = () => {
                   gap: '1em',
                 }}
               >
-                <PopoverHeader
+                <PopoverBody
                   style={{
                     width: '100%',
                     display: 'flex',
-                    justifyContent: 'right',
+                    alignItems: 'start',
+                    gap: '1em',
                   }}
                 >
-                  <PopoverCloseButton />
-                </PopoverHeader>
+                  <Input
+                    id="listName"
+                    aria-label="listName"
+                    placeholder="Enter Name"
+                    style={{ textAlign: 'center' }}
+                  />
+                  <PopoverCloseButton style={{ aspectRatio: '1' }} />
+                </PopoverBody>
 
-                <PopoverBody>Add a list:</PopoverBody>
                 <PopoverFooter
                   border="0"
                   display="flex"
@@ -150,6 +196,12 @@ const Home: NextPage = () => {
                         borderRadius: '.5em',
                         background: 'none',
                       }}
+                      onClick={e =>
+                        handleCreateTodoList(
+                          e.currentTarget.parentElement?.parentElement?.parentElement?.firstChild
+                            ?.firstChild?.firstChild?.firstChild?.lastChild
+                        )
+                      }
                     >
                       Todo
                     </button>
