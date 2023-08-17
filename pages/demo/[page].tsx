@@ -6,6 +6,8 @@ import React, { useState } from 'react';
 import Auth from '../../components/auth';
 import Link from 'next/link';
 import TodoList from '../../components/TodoList';
+import Head from 'next/head';
+import Header from '../../components/header';
 
 const Page = () => {
   const { isLoggedIn, user } = useAuth();
@@ -20,35 +22,28 @@ const Page = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <Auth />
+    <>
+      <Head>
+        <title>About</title>
+        <meta name="description" content="This is the about page for Habit Sherpa." />
+        <link rel="icon" href="./backpack.ico" />
+      </Head>
+      <main className={styles.page}>
+        <Header />
         {isLoggedIn ? (
-          <div>
+          <div className={styles.todoContent}>
             <TodoList docid={(page as any).toString()}></TodoList>
           </div>
         ) : (
-          <div
-            style={{
-              display: 'flex',
-              flexFlow: 'column nowrap',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginTop: '5em',
-            }}
-          >
-            <h3>Please Login to view protected pages.</h3>
-            <Link
-              href={'/'}
-              style={{ padding: '.5em 1em', border: '1px solid black', textAlign: 'center' }}
-            >
-              Home
-            </Link>
+          <div className={styles.loginContent}>
+            <video width="300px" autoPlay muted loop>
+              <source src="../../v1.1/HabitSherpa_LoginSign.webm" type="video/webm"></source>
+            </video>
           </div>
         )}
       </main>
       <Footer />
-    </div>
+    </>
   );
 };
 

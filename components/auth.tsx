@@ -1,11 +1,11 @@
 import React from 'react';
-import { Box, Button, Link, Text, useColorMode } from '@chakra-ui/react';
+import { Box, Button, Link, Text } from '@chakra-ui/react';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { FaGoogle, FaMoon, FaSun } from 'react-icons/fa';
+import { FaGoogle } from 'react-icons/fa';
 import { auth } from '../firebase';
 import useAuth from '../hooks/useAuth';
+import styles from '../styles/Home.module.css';
 const Auth = () => {
-  const { toggleColorMode, colorMode } = useColorMode();
   const { isLoggedIn, user } = useAuth();
 
   const handleAuth = async () => {
@@ -34,21 +34,44 @@ const Auth = () => {
   };
 
   return (
-    <Box position={'fixed'} top="5%" right="5%">
-      <Button onClick={() => toggleColorMode()}>
-        {colorMode == 'dark' ? <FaSun /> : <FaMoon />}
-      </Button>{' '}
+    <Box className={styles.authBox}>
       {isLoggedIn && (
         <>
-          <Text color="green.500">{(user as any).email}</Text>
-          <Link color="red.500" onClick={() => auth.signOut()}>
+          <Text style={{ fontSize: '.5em' }}>Hi, {(user as any).displayName}</Text>
+          <Link
+            style={{
+              border: '1px solid var(--main-black)',
+              background: 'var(--main-white)',
+              padding: '.25em .75em',
+              borderRadius: '999em',
+              textAlign: 'center',
+              justifyContent: 'center',
+              alignItems: 'center',
+              cursor: 'pointer',
+              fontSize: '.6em',
+            }}
+            onClick={() => auth.signOut()}
+          >
             Logout
           </Link>
         </>
       )}
       {!isLoggedIn && (
-        <Button leftIcon={<FaGoogle />} onClick={() => handleAuth()}>
-          Login with Google
+        <Button
+          style={{
+            color: 'var(--main-black)',
+            background: 'var(--main-white)',
+            border: '1px solid var(--main-black)',
+            borderRadius: '999em',
+            padding: '.25em .75em',
+            fontFamily: 'dico-sans-soft',
+            fontWeight: '400',
+            fontStyle: 'normal',
+          }}
+          leftIcon={<FaGoogle />}
+          onClick={() => handleAuth()}
+        >
+          SignIn
         </Button>
       )}
     </Box>

@@ -1,9 +1,25 @@
+:root {
+  --main-black: #2e2d2b;
+  --accent-orange: #f8e6c6;
+  --accent-light-orange: #f8eedc;
+  --main-orange: #faae3b;
+  --dark-orange: #d38e33;
+  --accent-green: #a5c161;
+  --main-green: #88a350;
+  --dark-green: #6c8341;
+  --accent-gray: #a7b1ad;
+  --main-gray: #919d99;
+  --dark-gray: #75857f;
+  --main-white: #fcf7ed;
+  background: var(--main-white);
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {

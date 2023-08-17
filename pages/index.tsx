@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Footer from '../components/footer';
 import styles from '../styles/Home.module.css';
 import Auth from '../components/auth';
+import { FaRecycle } from 'react-icons/fa';
 import useAuth from '../hooks/useAuth';
 import { useState, useEffect } from 'react';
 import {
@@ -29,7 +30,8 @@ import {
   ButtonGroup,
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import { Input } from '@nextui-org/react';
+import { Button, Input } from '@nextui-org/react';
+import Header from '../components/header';
 
 const Home: NextPage = () => {
   const { isLoggedIn, user } = useAuth();
@@ -46,7 +48,7 @@ const Home: NextPage = () => {
       setSojourns([]);
       return;
     }
-    const q = query(collection(db, 'sojourns'), where('user', '==', (user as any).uid));
+    const q = query(collection(db, 'expeditions'), where('user', '==', (user as any).uid));
 
     onSnapshot(q, querySnapchot => {
       let ar: any = [{}];
@@ -62,8 +64,10 @@ const Home: NextPage = () => {
   }, [user]);
 
   const handleCreateTodoList = async (e: any) => {
+    console.log(e.value);
     try {
-      const q = query(collection(db, 'sojourns'), where('user', '==', (user as any).uid));
+      const q = query(collection(db, 'expeditions'), where('user', '==', (user as any).uid));
+      console.log(q);
       const newTodoRef = doc(collection(db, 'todo'));
       onSnapshot(q, querySnapchot => {
         querySnapchot.docs.forEach(async doc => {
@@ -104,77 +108,53 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <Auth />
+        <Header />
+
         {isLoggedIn ? (
-          <div
-            style={{
-              marginTop: '5em',
-              display: 'flex',
-              flexFlow: 'column nowrap',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '2em',
-            }}
-          >
-            <h1>This is the home page for {(user as any)?.displayName}</h1>
+          <div className={styles.mainContent}>
             <div>
-              <h2>Sojourns</h2>
-              <div
-                style={{
-                  display: 'flex',
-                  flexFlow: 'column nowrap',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '1em',
-                }}
-              >
-                {(sojourns[1] as any)?.sojourns.map((sojourn: SojournProps) => (
-                  <Link
-                    key={sojourn.docid}
-                    href={'/demo/' + sojourn.docid}
-                    style={{ padding: '.5em 1em', border: '1px solid black', borderRadius: '.5em' }}
-                  >
-                    {sojourn.title}
-                  </Link>
+              <h2>Expeditions</h2>
+              <div className={styles.expBox}>
+                {(sojourns[1] as any)?.sojourns?.map((sojourn: SojournProps) => (
+                  <div className={styles.expItem} key={sojourn.docid}>
+                    <button className={styles.expTag}></button>
+                    <div className={styles.expName}>
+                      <Link href={'/demo/' + sojourn.docid}>{sojourn.title}</Link>
+                      <button className={styles.expTrash}>
+                        <FaRecycle style={{ fontSize: '1.5em' }} />
+                      </button>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
-            <Popover placement="top" closeOnBlur={false}>
+            <Popover placement="top" closeOnBlur={true}>
               <PopoverTrigger>
-                <button
-                  style={{
-                    padding: '.5em 1em',
-                    border: '1px solid black',
-                    borderRadius: '.5em',
-                    background: 'none',
-                  }}
-                >
-                  Trigger
-                </button>
+                <button className={styles.addTodo}>Add List</button>
               </PopoverTrigger>
               <PopoverContent
                 style={{
+                  alignItems: 'center',
                   background: '#eee',
-                  padding: '1em',
                   borderRadius: '.5em',
                   display: 'flex',
                   flexFlow: 'column nowrap',
-                  alignItems: 'center',
-                  justifyContent: 'center',
                   gap: '1em',
+                  justifyContent: 'center',
+                  padding: '1em',
                 }}
               >
                 <PopoverBody
                   style={{
-                    width: '100%',
-                    display: 'flex',
                     alignItems: 'start',
+                    display: 'flex',
                     gap: '1em',
+                    width: '100%',
                   }}
                 >
                   <Input
-                    id="listName"
                     aria-label="listName"
+                    id="listName"
                     placeholder="Enter Name"
                     style={{ textAlign: 'center' }}
                   />
@@ -182,60 +162,41 @@ const Home: NextPage = () => {
                 </PopoverBody>
 
                 <PopoverFooter
+                  alignItems="center"
                   border="0"
                   display="flex"
-                  alignItems="center"
                   justifyContent="space-between"
                   pb={4}
                 >
-                  <ButtonGroup size="md">
-                    <button
-                      style={{
-                        padding: '.5em 1em',
-                        border: '1px solid black',
-                        borderRadius: '.5em',
-                        background: 'none',
-                      }}
-                      onClick={e =>
-                        handleCreateTodoList(
-                          e.currentTarget.parentElement?.parentElement?.parentElement?.firstChild
-                            ?.firstChild?.firstChild?.firstChild?.lastChild
-                        )
-                      }
-                    >
-                      Todo
-                    </button>
-                    <button
-                      style={{
-                        padding: '.5em 1em',
-                        border: '1px solid black',
-                        borderRadius: '.5em',
-                        background: 'none',
-                      }}
-                    >
-                      Routine
-                    </button>
-                    <button
-                      style={{
-                        padding: '.5em 1em',
-                        border: '1px solid black',
-                        borderRadius: '.5em',
-                        background: 'none',
-                      }}
-                    >
-                      Habit
-                    </button>
-                  </ButtonGroup>
+                  <button
+                    style={{
+                      background: 'none',
+                      border: '1px solid black',
+                      borderRadius: '.5em',
+                      padding: '.5em 1em',
+                    }}
+                    onClick={e =>
+                      handleCreateTodoList(
+                        e.currentTarget.parentElement?.parentElement?.parentElement?.firstChild
+                          ?.firstChild?.firstChild?.firstChild?.lastChild?.lastChild
+                      )
+                    }
+                  >
+                    Add
+                  </button>
                 </PopoverFooter>
               </PopoverContent>
             </Popover>
           </div>
         ) : (
-          <div style={{ marginTop: '5em' }}>
-            <h1>Please Login to view your lists.</h1>
+          <div className={styles.loginContent}>
+            <video width="300px" autoPlay muted loop>
+              <source src="./v1.1/HabitSherpa_LoginSign.webm" type="video/webm"></source>
+            </video>
           </div>
         )}
       </main>
+
       <Footer />
     </div>
   );

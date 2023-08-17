@@ -6,6 +6,7 @@ import { db } from '../firebase';
 import { FaToggleOff, FaToggleOn, FaTrash, FaPlus } from 'react-icons/fa';
 import { deleteTodo, toggleTodoStatus, addTodo } from '../api/todo';
 import { Checkbox, Input } from '@nextui-org/react';
+import styles from '../styles/Home.module.css';
 
 type TodoListProps = {
   docid: string;
@@ -70,57 +71,41 @@ const TodoList = (props: TodoListProps) => {
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexFlow: 'column nowrap',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '1em',
-      }}
-    >
+    <>
       <h1>{title}</h1>
-      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
+      <div className={styles.todoBox}>
         {todos &&
           todos.map((todo: any, i: number) => (
-            <div
-              key={i}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: '1em',
-                padding: '.25em 1em',
-                border: '1px solid black',
-                borderRadius: '1em',
-              }}
-            >
-              <Checkbox
-                isSelected={todo.isComplete}
-                lineThrough
-                color="secondary"
+            <div key={i} className={styles.todoItem}>
+              <input
+                type="checkbox"
+                id={'todo' + i}
+                name="todoCheck"
+                checked={todo.isComplete}
                 onChange={() => handleToggle(todo.isComplete, todo.task)}
-              >
+              />
+              <label htmlFor={'todo' + i} className={styles.strikethrough}>
                 {todo.task}
-              </Checkbox>
+              </label>
+
               <FaTrash
                 onClick={() => handleTodoDelete(props.docid, todo.task, todo.isComplete)}
               ></FaTrash>
             </div>
           ))}
-      </SimpleGrid>
-      <div style={{ marginTop: '2em' }}>
-        <Input
-          label="New Task"
-          placeholder="Enter new task"
-          contentRight={<FaPlus />}
-          contentClickable
-          onContentClick={(key, e) => {
-            handleAdd(e.currentTarget.parentElement?.firstChild);
-          }}
-        />
+        <div style={{ marginTop: '2em' }}>
+          <Input
+            label="New Task"
+            placeholder="Enter new task"
+            contentRight={<FaPlus />}
+            contentClickable
+            onContentClick={(key, e) => {
+              handleAdd(e.currentTarget.parentElement?.firstChild);
+            }}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
