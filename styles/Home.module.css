@@ -9,17 +9,19 @@
 
 .mainContent {
   align-items: center;
+  overflow-y: scroll;
   display: flex;
   flex-flow: column nowrap;
-  gap: 2em;
+  max-height: 70vh;
+  gap: 1em;
   justify-content: center;
-  margin-top: 5em;
   font-family: 'snicker', sans-serif;
   font-weight: 700;
   font-style: normal;
 }
 
 .mainContent h2 {
+  margin-top: 1em;
   text-align: center;
 }
 
@@ -27,8 +29,15 @@
   align-items: center;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
-  margin-top: 5em;
+  justify-content: flex-start;
+  text-align: center;
+  margin-top: 3em;
+  color: var(--dark-brown);
+}
+
+.loginContent h4 span {
+  font-size: 1.5em;
+  line-height: 2em;
 }
 
 /* ------------------------Header Styles------------------------------ */
@@ -40,22 +49,8 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-}
-
-.header h1 {
-  font-family: 'snicker', sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  font-size: 2em;
-  text-align: center;
-}
-
-.headerBG {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  z-index: -9;
+  background-color: var(--light-green);
+  border-bottom: 1px solid var(--main-green);
 }
 
 .headerBG img {
@@ -66,6 +61,15 @@
   width: 50px;
 }
 
+.headerTitle {
+  font-size: 1.5em;
+  color: var(--dark-brown);
+}
+
+.headerTitleEnd {
+  color: var(--dark-green);
+}
+
 .authBox {
   text-align: center;
   width: 50px;
@@ -73,6 +77,8 @@
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
+  background-color: none;
+  color: var(--dark-green);
 }
 
 /* ------------------------Footer Styles------------------------------ */
@@ -82,56 +88,36 @@
   left: 0;
   bottom: 0;
   width: 100vw;
-  height: 350px;
-  z-index: -10;
-}
-
-.footerBG {
-  position: absolute;
-  width: 100vw;
-  bottom: 0;
-}
-
-.footerLinks {
-  width: 100vw;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  padding: 2rem;
-  background: var(--accent-light-orange);
+  height: 150px;
+  background-image: linear-gradient(var(--main-brown), var(--dark-brown));
   display: flex;
+  flex-flow: row nowrap;
   align-items: center;
   justify-content: space-evenly;
-  z-index: 5;
 }
 
-.footerLinkBox {
-  width: 50px;
-  border-bottom: 3px solid rgba(0, 0, 0, 0);
-  transition: all 0.4s ease;
+.footerDivider {
+  height: 100px;
+  border-left: 1px solid var(--main-black);
 }
 
-.footerLinkBox a {
-  font-family: 'snicker', sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  font-size: 1.25em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  transition: all 0.4s ease;
+.footerLinkActive svg {
+  height: 40px;
+  width: 40px;
+  color: var(--dark-brown);
 }
 
-.footerLinkBox:hover {
-  border-bottom: 3px solid var(--main-black);
-  width: 100px;
+.footerLink svg {
+  height: 35px;
+  width: 40px;
+  color: var(--main-black);
 }
 
 /* ------------------------About Page Styles------------------------------ */
 
 .about {
   display: flex;
+  align-items: flex-start;
   flex-direction: column;
   z-index: 1;
 }
@@ -143,9 +129,6 @@
   align-items: center;
   justify-content: center;
   margin-top: 5em;
-  font-family: 'snicker', sans-serif;
-  font-weight: 700;
-  font-style: normal;
 }
 
 /* ------------------------Home Page Styles------------------------------ */
@@ -197,9 +180,6 @@
   border: 2px solid var(--main-black);
   border-radius: 999em;
   padding: 0.5em 1em;
-  font-family: 'snicker', sans-serif;
-  font-weight: 700;
-  font-style: normal;
   font-size: 1.25em;
 }
 
@@ -212,9 +192,6 @@
   gap: 2em;
   justify-content: center;
   margin-top: 5em;
-  font-family: 'snicker', sans-serif;
-  font-weight: 700;
-  font-style: normal;
 }
 
 .todoBox {
@@ -241,4 +218,54 @@
 
 .todoItem input[type='checkbox']:checked + label.strikethrough {
   text-decoration: line-through;
+}
+
+/* ------------------------Space Page Styles------------------------------ */
+.spaceContent {
+  align-items: center;
+  overflow-y: scroll;
+  display: flex;
+  flex-flow: column nowrap;
+  max-height: 70vh;
+  gap: 1em;
+  justify-content: center;
+}
+
+.pageContent {
+  align-items: center;
+  overflow-y: scroll;
+  display: flex;
+  flex-flow: column nowrap;
+  max-height: 70vh;
+  gap: 1em;
+  justify-content: center;
+}
+
+.homeContent {
+  align-items: center;
+  overflow-y: scroll;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1em;
+  justify-content: center;
+}
+
+.homeStats {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  background-color: var(--dark-brown);
+  color: var(--main-white);
+  border-radius: 1em;
+}
+
+.homeStat {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+
+  width: 200px;
 }

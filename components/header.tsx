@@ -5,17 +5,14 @@ const Header = () => {
   return (
     <>
       <header className={styles.header}>
-        <picture className={styles.headerBG}>
-          <source srcSet="../../v1.1/Clouds_BG_M.png" media="(max-width: 1081px)" />
-          <img src="../../v1.1/Clouds_BG_D.png" alt="Faded Mountains" />
-        </picture>
-
         <img
           className={styles.logo}
-          src="../../v1.1/Logo_Lg.png"
-          alt="Green and Yellow Backpack Logo"
+          src="../../v1.1/FC_Logo_LG.png"
+          alt="A sprouting potted plant: FloraCare's logo"
         />
-        <h1>Habit Sherpa</h1>
+        <h1 className={styles.headerTitle}>
+          Flora<span className={styles.headerTitleEnd}>Care</span>
+        </h1>
         <Auth />
       </header>
     </>

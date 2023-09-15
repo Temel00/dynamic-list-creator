@@ -1,31 +1,92 @@
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
 
-const Footer = () => {
+type footerProps = {
+  activePage: number;
+};
+
+const Footer = (props: footerProps) => {
   return (
     <>
       <footer className={styles.footer}>
-        <picture>
-          <source srcSet="../../v1.1/Mountains_BG_M.png" media="(max-width: 1081px)" />
-          <img
-            className={styles.footerBG}
-            src="../../v1.1/Mountains_BG_D.png"
-            alt="Faded Mountains"
-          />
-        </picture>
+        {props.activePage == 1 ? (
+          <Link className={styles.footerLinkActive} href="/" passHref>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+              fill="currentColor"
+            >
+              <path d="M160-200v-295l-40 31q-14 10-30 8t-26-16q-10-14-8-30t15-26l89-68v-84q0-17 11.5-28.5T200-720q17 0 28.5 11.5T240-680v23l191-146q22-17 49-17t49 17l360 275q13 10 15 26t-8 30q-10 13-26 15t-29-8l-41-30v295q0 33-23.5 56.5T720-120H240q-33 0-56.5-23.5T160-200Zm80 0h200v-120q0-17 11.5-28.5T480-360q17 0 28.5 11.5T520-320v120h200v-356L480-739 240-556v356Zm0 0h480-480Zm-28-560q-23 0-35.5-19t-1.5-39q17-29 44.5-45.5T280-880q11 0 21-5.5t15-15.5q5-9 13.5-14t19.5-5q23 0 35 19t1 39q-17 29-44.5 45.5T280-800q-11 0-21 5t-15 16q-5 9-13 14t-19 5Z" />
+            </svg>
+          </Link>
+        ) : (
+          <Link className={styles.footerLink} href="/" passHref>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+              fill="currentColor"
+            >
+              <path d="M160-200v-295l-40 31q-14 10-30 8t-26-16q-10-14-8-30t15-26l89-68v-84q0-17 11.5-28.5T200-720q17 0 28.5 11.5T240-680v23l191-146q22-17 49-17t49 17l360 275q13 10 15 26t-8 30q-10 13-26 15t-29-8l-41-30v295q0 33-23.5 56.5T720-120H240q-33 0-56.5-23.5T160-200Zm80 0h200v-120q0-17 11.5-28.5T480-360q17 0 28.5 11.5T520-320v120h200v-356L480-739 240-556v356Zm0 0h480-480Zm-28-560q-23 0-35.5-19t-1.5-39q17-29 44.5-45.5T280-880q11 0 21-5.5t15-15.5q5-9 13.5-14t19.5-5q23 0 35 19t1 39q-17 29-44.5 45.5T280-800q-11 0-21 5t-15 16q-5 9-13 14t-19 5Z" />
+            </svg>
+          </Link>
+        )}
+        <span className={styles.footerDivider}></span>
+        {props.activePage == 2 ? (
+          <Link className={styles.footerLinkActive} href="/spaces" passHref>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+              fill="currentColor"
+            >
+              <path d="M342-160h276l40-160H302l40 160Zm0 80q-28 0-49-17t-28-44l-45-179h520l-45 179q-7 27-28 44t-49 17H342ZM200-400h560v-80H200v80Zm70-478q89 11 149.5 78.5T480-640q0-92 60.5-159.5T690-878q12-2 21 7t7 21q-10 79-65 135.5T520-644v84h280q17 0 28.5 11.5T840-520v120q0 33-23.5 56.5T760-320H200q-33 0-56.5-23.5T120-400v-120q0-17 11.5-28.5T160-560h280v-84q-78-14-133-70.5T242-850q-2-12 7-21t21-7Z" />
+            </svg>
+          </Link>
+        ) : (
+          <Link className={styles.footerLink} href="/spaces" passHref>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+              fill="currentColor"
+            >
+              <path d="M342-160h276l40-160H302l40 160Zm0 80q-28 0-49-17t-28-44l-45-179h520l-45 179q-7 27-28 44t-49 17H342ZM200-400h560v-80H200v80Zm70-478q89 11 149.5 78.5T480-640q0-92 60.5-159.5T690-878q12-2 21 7t7 21q-10 79-65 135.5T520-644v84h280q17 0 28.5 11.5T840-520v120q0 33-23.5 56.5T760-320H200q-33 0-56.5-23.5T120-400v-120q0-17 11.5-28.5T160-560h280v-84q-78-14-133-70.5T242-850q-2-12 7-21t21-7Z" />
+            </svg>
+          </Link>
+        )}
+        <span className={styles.footerDivider}></span>
+        {props.activePage == 3 ? (
+          <Link className={styles.footerLinkActive} href="/about" passHref>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+              fill="currentColor"
+            >
+              <path d="M480-120q-17 0-28.5-11.5T440-160v-160q0-17 11.5-28.5T480-360q17 0 28.5 11.5T520-320v40h280q17 0 28.5 11.5T840-240q0 17-11.5 28.5T800-200H520v40q0 17-11.5 28.5T480-120Zm-320-80q-17 0-28.5-11.5T120-240q0-17 11.5-28.5T160-280h160q17 0 28.5 11.5T360-240q0 17-11.5 28.5T320-200H160Zm160-160q-17 0-28.5-11.5T280-400v-40H160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520h120v-40q0-17 11.5-28.5T320-600q17 0 28.5 11.5T360-560v160q0 17-11.5 28.5T320-360Zm160-80q-17 0-28.5-11.5T440-480q0-17 11.5-28.5T480-520h320q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440H480Zm160-160q-17 0-28.5-11.5T600-640v-160q0-17 11.5-28.5T640-840q17 0 28.5 11.5T680-800v40h120q17 0 28.5 11.5T840-720q0 17-11.5 28.5T800-680H680v40q0 17-11.5 28.5T640-600Zm-480-80q-17 0-28.5-11.5T120-720q0-17 11.5-28.5T160-760h320q17 0 28.5 11.5T520-720q0 17-11.5 28.5T480-680H160Z" />
+            </svg>
+          </Link>
+        ) : (
+          <Link className={styles.footerLink} href="/about" passHref>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+              fill="currentColor"
+            >
+              <path d="M480-120q-17 0-28.5-11.5T440-160v-160q0-17 11.5-28.5T480-360q17 0 28.5 11.5T520-320v40h280q17 0 28.5 11.5T840-240q0 17-11.5 28.5T800-200H520v40q0 17-11.5 28.5T480-120Zm-320-80q-17 0-28.5-11.5T120-240q0-17 11.5-28.5T160-280h160q17 0 28.5 11.5T360-240q0 17-11.5 28.5T320-200H160Zm160-160q-17 0-28.5-11.5T280-400v-40H160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520h120v-40q0-17 11.5-28.5T320-600q17 0 28.5 11.5T360-560v160q0 17-11.5 28.5T320-360Zm160-80q-17 0-28.5-11.5T440-480q0-17 11.5-28.5T480-520h320q17 0 28.5 11.5T840-480q0 17-11.5 28.5T800-440H480Zm160-160q-17 0-28.5-11.5T600-640v-160q0-17 11.5-28.5T640-840q17 0 28.5 11.5T680-800v40h120q17 0 28.5 11.5T840-720q0 17-11.5 28.5T800-680H680v40q0 17-11.5 28.5T640-600Zm-480-80q-17 0-28.5-11.5T120-720q0-17 11.5-28.5T160-760h320q17 0 28.5 11.5T520-720q0 17-11.5 28.5T480-680H160Z" />
+            </svg>
+          </Link>
+        )}
       </footer>
-      <div className={styles.footerLinks}>
-        <div className={styles.footerLinkBox}>
-          <Link href="/" passHref>
-            Home
-          </Link>
-        </div>
-        <div className={styles.footerLinkBox}>
-          <Link href="/about" passHref>
-            About
-          </Link>
-        </div>
-      </div>
     </>
   );
 };

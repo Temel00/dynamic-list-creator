@@ -3,12 +3,12 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyB_VSzbUY9Gu5IENdu2xclLdnCz_YB1Kw8',
-  authDomain: 'habit-sherpa.firebaseapp.com',
-  projectId: 'habit-sherpa',
-  storageBucket: 'habit-sherpa.appspot.com',
-  messagingSenderId: '957769508304',
-  appId: '1:957769508304:web:9b7468509e290dc49c45d5',
+  apiKey: 'AIzaSyDtY5IUFSaAA44kLSSju9EumkcBaYkGK-Q',
+  authDomain: 'floracare-f6bd1.firebaseapp.com',
+  projectId: 'floracare-f6bd1',
+  storageBucket: 'floracare-f6bd1.appspot.com',
+  messagingSenderId: '152182436495',
+  appId: '1:152182436495:web:617ff062f9dd57971276fa',
 };
 
 const app = initializeApp(firebaseConfig);

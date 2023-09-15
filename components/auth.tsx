@@ -41,7 +41,6 @@ const Auth = () => {
           <Link
             style={{
               border: '1px solid var(--main-black)',
-              background: 'var(--main-white)',
               padding: '.25em .75em',
               borderRadius: '999em',
               textAlign: 'center',
@@ -59,8 +58,8 @@ const Auth = () => {
       {!isLoggedIn && (
         <Button
           style={{
-            color: 'var(--main-black)',
-            background: 'var(--main-white)',
+            color: 'var(--dark-green)',
+            background: 'none',
             border: '1px solid var(--main-black)',
             borderRadius: '999em',
             padding: '.25em .75em',
