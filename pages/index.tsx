@@ -104,6 +104,7 @@ const Home: NextPage = () => {
   const generateReport = async () => {
     let ar: Report = [];
     try {
+      console.log('hi');
       plants.forEach(plant => {
         ar.push({
           cname: plant.cname,
